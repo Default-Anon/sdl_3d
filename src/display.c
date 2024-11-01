@@ -1,4 +1,5 @@
 #include "display.h"
+#include "vector.h"
 #include <errno.h>
 
 bool is_running = false;
@@ -84,10 +85,17 @@ draw_rectangle (int marginX, int marginY, int width, int height,
     {
       for (int x = marginX; x < width + marginX; x++)
         {
-          color_buffer[window_width * y + x] = color;
+          draw_pixel (x, y, color);
         }
     }
 }
+void
+draw_pixel (int x, int y, uint32_t pixel_color)
+{
+  if (x >= 0 && x < window_width && y >= 0 && y < window_height)
+    color_buffer[window_width * y + x] = pixel_color;
+}
+
 void
 destroy_window (void)
 {
